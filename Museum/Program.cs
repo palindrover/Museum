@@ -1,7 +1,14 @@
+using Museum.Controllers.UtilityControllers;
+using Museum.Contexts;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+var connection = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.Add(new ServiceDescriptor(typeof(ExhibitContext), new ExhibitContext(connection)));
 
 var app = builder.Build();
 
