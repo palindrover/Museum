@@ -1,0 +1,29 @@
+﻿@model Museum.Models.Exhibition
+
+<div>
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Подробная информация</h4>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">×</button>
+    </div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Изображение:</dt>
+        <dd align="center"><img src="@Html.DisplayFor(model => model.Images)" width="450px" /></dd>
+        
+        <dt>Название:</dt>
+        <dd>@Html.DisplayFor(model => model.Title)</dd>
+
+        <dt>Экспозиция:</dt>
+        <dd>@Html.DisplayFor(model => model.ExpositionId)</dd>
+
+        <dt>Категория:</dt>
+        <dd>@Html.DisplayFor(model => model.CategoryId)</dd>
+
+        <dt>Выставочный зал:</dt>
+        <dd>@Html.DisplayFor(model => model.ExhibitionHallId)</dd>
+
+        <dt>Описание:</dt>
+        <dd>@Html.DisplayFor(model => model.Description)</dd>
+    </dl>
+</div>

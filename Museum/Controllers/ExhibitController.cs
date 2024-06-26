@@ -17,7 +17,13 @@ namespace Museum.Controllers
 
         private void GetHttpContext()
         {
-            _context ??= HttpContext.RequestServices.GetService(typeof(Museum.Contexts.BaseContext)) as ExhibitContext;
+            _context ??= HttpContext.RequestServices.GetService(typeof(ExhibitContext)) as ExhibitContext;
+        }
+
+        public IActionResult Details(int id)
+        {
+            GetHttpContext();
+            return PartialView("Details", _context.GetExhibitById(id));
         }
     }
 }

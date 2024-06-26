@@ -21,7 +21,7 @@ namespace Museum.Contexts
         {
             CheckExhibitListClear();
 
-            MySQGetResult("SELECT * FROM composition.exhibits");
+            MySQGetResult("SELECT * FROM exhibits");
 
             return _list;
         }
@@ -45,7 +45,7 @@ namespace Museum.Contexts
                         Description = _sd.SafeGetStringData(reader, "description"),
                         Images = _sd.SafeGetStringData(reader, "images"),
                         IsTransmitted = _sd.SafeGetNumericData(reader, "istransmitted"),
-                        WhereTransmittedId = _sd.SafeGetNumericData(reader, "wheretransmitted"),
+                        WhereTransmittedId = _sd.SafeGetNumericData(reader, "wheretransmittedid"),
                         InvNum = _sd.SafeGetStringData(reader, "invnum")
                     });
                 }
@@ -56,6 +56,12 @@ namespace Museum.Contexts
         {
             if(_list ==  null) GetAllExhibits();
             return _list.FindAll(element => element.CategoryId == categoryId);
+        }
+
+        public Exhibit GetExhibitById(int id)
+        {
+            if (_list == null) GetAllExhibits();
+            return _list.Find(element => element.Id == id);
         }
     }
 }
