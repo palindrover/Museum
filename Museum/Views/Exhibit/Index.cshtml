@@ -1,43 +1,37 @@
 ﻿@model IEnumerable<Museum.Models.Exhibit>
 
-@{int counter = 1;}
+<div class="display">
 
-<table>
-	@foreach(var item in Model)
-	{
-		<tr>
-			<th>
-                @counter
-            </th>
+    @foreach(Exhibit item in Model)
+    {
+        <div class="card text-center">
 
-			<th>
-                @Html.DisplayFor(modelItem => item.Title)
-            </th>
+            <img src="@item.Images" style="width: 100%">
+            
+            <div class="container">
 
-			<th>
-                <img src="@Html.DisplayFor(modelItem => item.Images)"  width="200px"/>
-            </th>
+                <h4><b>@item.Title</b></h4>
 
-			<th>
-				<a href="javascript:void(0);" class="anchorDetail" data-id="@item.Id">Подробнее</a>
-			</th>
-		</tr>
+                <a href="javascript:void(0);" class="anchorDetail" data-id="@item.Id">Подробнее</a>
 
-		counter++;
-	}
-</table>
+            </div>
+
+        </div>
+    }
+
+</div>
 
 <div id='myModal' class='modal'>
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div id='myModalContent'></div>
-		</div>
-	</div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
 
 </div>
 
 @section scripts
-    {
+{
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
@@ -45,8 +39,7 @@
 
         var TeamDetailPostBackURL = '/Exhibit/Details';
         $(function () {
-            $(".anchorDetail").click(function ()
-            {
+            $(".anchorDetail").click(function () {
                 debugger;
                 var $buttonClicked = $(this);
                 var id = $buttonClicked.attr('data-id');
@@ -58,24 +51,21 @@
                         contentType: "application/json; charset=utf-8",
                         data: { "Id": id },
                         datatype: "json",
-                        success: function (data)
-                        {
+                        success: function (data) {
                             debugger;
                             $('#myModalContent').html(data);
                             $('#myModal').modal(options);
                             $('#myModal').modal('show');
 
                         },
-                        error: function ()
-                        {
+                        error: function () {
                             alert("Ошибка загрузки динамического контента.");
                         }
-                });
+                    });
             });
-            $("#closbtn").click(function ()
-            {
+            $("#closbtn").click(function () {
                 $('#myModal').modal('hide');
             });
         });
     </script>
-    }
+}
