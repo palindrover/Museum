@@ -26,6 +26,24 @@ namespace Museum.Contexts
             return _list;
         }
 
+        public List<Exhibit> GetByCategory(int categId)
+        {
+            CheckExhibitListClear();
+
+            MySQGetResult($"SELECT * FROM exhibits WHERE categoryid = {categId}");
+
+            return _list;
+        }
+
+        public List<Exhibit> GetByHall(int hallId)
+        {
+            CheckExhibitListClear();
+
+            MySQGetResult($"SELECT * FROM exhibits WHERE exhibitionhallid = {hallId}");
+
+            return _list;
+        }
+
         private void MySQGetResult(string command)
         {
             using (MySqlConnection conn = GetConnection())

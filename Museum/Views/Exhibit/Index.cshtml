@@ -1,5 +1,16 @@
 ﻿@model IEnumerable<Museum.Models.Exhibit>
 
+<form method="post">
+    <label>Категории</label>
+    <select name="category">
+
+    </select>
+</form>
+
+<form method="post" asp-controller="Exhibit" asp-action="Category">
+
+</form>
+
 <div class="display">
 
     @foreach(Exhibit item in Model)
@@ -12,7 +23,7 @@
 
                 <h4><b>@item.Title</b></h4>
 
-                <a href="javascript:void(0);" class="anchorDetail" data-id="@item.Id">Подробнее</a>
+                <a asp-controller="Exhibit" asp-action="Details" asp-route-id="@item.Id">Подробнее</a>
 
             </div>
 
@@ -20,52 +31,3 @@
     }
 
 </div>
-
-<div id='myModal' class='modal'>
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div id='myModalContent'></div>
-        </div>
-    </div>
-
-</div>
-
-@section scripts
-{
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script>
-
-        var TeamDetailPostBackURL = '/Exhibit/Details';
-        $(function () {
-            $(".anchorDetail").click(function () {
-                debugger;
-                var $buttonClicked = $(this);
-                var id = $buttonClicked.attr('data-id');
-                var options = { "backdrop": "static", keyboard: true };
-                $.ajax(
-                    {
-                        type: "GET",
-                        url: TeamDetailPostBackURL,
-                        contentType: "application/json; charset=utf-8",
-                        data: { "Id": id },
-                        datatype: "json",
-                        success: function (data) {
-                            debugger;
-                            $('#myModalContent').html(data);
-                            $('#myModal').modal(options);
-                            $('#myModal').modal('show');
-
-                        },
-                        error: function () {
-                            alert("Ошибка загрузки динамического контента.");
-                        }
-                    });
-            });
-            $("#closbtn").click(function () {
-                $('#myModal').modal('hide');
-            });
-        });
-    </script>
-}

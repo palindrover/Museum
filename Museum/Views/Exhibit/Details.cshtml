@@ -1,29 +1,14 @@
-﻿@model Museum.Models.Exhibition
+﻿@model Museum.Models.Exhibit
 
-<div>
+<h1>@Model.Title</h1>
 
-    <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">Подробная информация</h4>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">×</button>
-    </div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>Изображение:</dt>
-        <dd align="center"><img src="@Html.DisplayFor(model => model.Images)" width="450px" /></dd>
+@{string[]? links = Model.Images.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);}
 
-        <dt>Название:</dt>
-        <dd>@Html.DisplayFor(model => model.Title)</dd>
+@foreach(string s in links)
+{
+    <img src="@s"/>
+}
 
-        <dt>Категория:</dt>
-        <dd>@Html.DisplayFor(model => model.CategoryId)</dd>
+<br />
 
-        <dt>Экспозиция:</dt>
-        <dd>@Html.DisplayFor(model => model.ExpositionId)</dd>
-
-        <dt>Выставочный Зал:</dt>
-        <dd>@Html.DisplayFor(model => model.ExhibitionHAllId)</dd>
-
-        <dt>Описание:</dt>
-        <dd>@Html.DisplayFor(model => model.Description)</dd>
-    </dl>
-</div>
+<a>@Model.Description</a>
