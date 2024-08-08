@@ -12,7 +12,7 @@ namespace Museum.Controllers
         {
             GetHttpContext();
 
-            return View(_context.GetAllHalls());
+            return View(_context.GetAllHalls().OrderBy(el => el.HallAddress));
         }
         private void GetHttpContext()
         {

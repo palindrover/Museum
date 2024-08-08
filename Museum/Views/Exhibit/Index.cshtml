@@ -1,20 +1,19 @@
 ﻿@model IEnumerable<Museum.Models.Exhibit>
 
-<form method="post">
-    <label>Категории</label>
-    <select name="category">
-
-    </select>
-</form>
-
-<form method="post" asp-controller="Exhibit" asp-action="Category">
-
-</form>
+@{
+    int prevCat = Model.First().CategoryId;
+}
 
 <div class="display">
 
     @foreach(Exhibit item in Model)
     {
+        @if(item.CategoryId != prevCat)
+        {
+
+            prevCat = item.CategoryId;
+        }
+
         <div class="card text-center">
 
             <img src="@item.Images" style="width: 100%">
