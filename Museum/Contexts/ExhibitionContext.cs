@@ -25,7 +25,7 @@ namespace Museum.Contexts
                         Description = _sd.SafeGetStringData(reader, "exhibitiondescription"),
                         Image = _sd.SafeGetStringData(reader, "exhibitionimage"),
                         Exhibits = _sd.SafeGetStringData(reader, "exhibitsarray").Split(',').Select(x => int.Parse(x)).ToArray(),
-                        Leadup = _sd.SafeGetStringData(reader, "exhibitionleadup")
+                        Leadup = _sd.SafeGetStringData(reader, "exhibitsleadup")
                     });
                 }
             }
@@ -44,6 +44,13 @@ namespace Museum.Contexts
             MySQGetResult("SELECT * FROM exhibitions");
 
             return _list;
+        }
+
+        public Exhibition GetById(int id)
+        {
+            if (_list == null) GetAllExhibitions();
+
+            return _list.Find(el => el.Id == id);
         }
     }
 }

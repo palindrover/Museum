@@ -1,0 +1,23 @@
+﻿@model Museum.Models.Exhibition
+
+<h1>@Model.Title</h1>
+
+@{
+    string[]? links = Model.Image.Split(new char[] { '#' }, StringSplitOptions.RemoveEmptyEntries);
+}
+
+@foreach (string s in links)
+{
+    <img src="@s" />
+}
+
+<br />
+
+
+<a>Описание:</a>
+<a>@Model.Description</a>
+
+<br />
+
+<a>Лидап:</a>
+<a>@Model.Leadup</a>

@@ -10,6 +10,7 @@ var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.Add(new ServiceDescriptor(typeof(ExhibitContext), new ExhibitContext(connection)));
 builder.Services.Add(new ServiceDescriptor(typeof(HallContext), new HallContext(connection)));
+builder.Services.Add(new ServiceDescriptor(typeof(ExhibitionContext), new ExhibitionContext(connection)));
 
 var app = builder.Build();
 

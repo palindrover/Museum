@@ -1,5 +1,22 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model IEnumerable<Museum.Models.Exhibition>
+
+<div class="display">
+
+    @foreach (Exhibition item in Model)
+    {
+        <div class="card text-center">
+
+            <img src="@item.Image" style="width: 100%">
+
+            <div class="container">
+
+                <h4><b>@item.Title</b></h4>
+
+                <a asp-controller="Exhibition" asp-action="Details" asp-route-id="@item.Id">Подробнее</a>
+
+            </div>
+
+        </div>
+    }
+
+</div>
