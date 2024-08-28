@@ -1,5 +1,6 @@
 using Museum.Controllers.UtilityControllers;
 using Museum.Contexts;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,17 @@ var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.Add(new ServiceDescriptor(typeof(ExhibitContext), new ExhibitContext(connection)));
 builder.Services.Add(new ServiceDescriptor(typeof(HallContext), new HallContext(connection)));
 builder.Services.Add(new ServiceDescriptor(typeof(ExhibitionContext), new ExhibitionContext(connection)));
+builder.Services.Add(new ServiceDescriptor(typeof(UserContext), new UserContext(connection)));
+
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Login/Index");
+                    options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Login/Index");
+                });
+
+
 
 var app = builder.Build();
 
