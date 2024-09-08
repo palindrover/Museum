@@ -2,9 +2,7 @@
 
 <h1>@Model.Title</h1>
 
-@{string[]? links = Model.Images.Split(new char[] { '#' }, StringSplitOptions.RemoveEmptyEntries);}
-
-@foreach(string s in links)
+@foreach(string s in Model.Images)
 {
     <img src="@s"/>
 }

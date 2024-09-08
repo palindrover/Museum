@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using Museum.Models;
+using Org.BouncyCastle.Security;
 
 namespace Museum.Contexts
 {
@@ -24,8 +25,7 @@ namespace Museum.Contexts
                         Title = _sd.SafeGetStringData(reader, "exhibitiontitle"),
                         Description = _sd.SafeGetStringData(reader, "exhibitiondescription"),
                         Image = _sd.SafeGetStringData(reader, "exhibitionimage"),
-                        Exhibits = _sd.SafeGetStringData(reader, "exhibitsarray").Split(',').Select(x => int.Parse(x)).ToArray(),
-                        Leadup = _sd.SafeGetStringData(reader, "exhibitsleadup")
+                        Leadup = _sd.SafeGetStringData(reader, "exhibitsleadup").Split('#')
                     });
                 }
             }
@@ -46,11 +46,58 @@ namespace Museum.Contexts
             return _list;
         }
 
-        public Exhibition GetById(int id)
+        public Exhibition GetExhibitionById(int id)
         {
-            if (_list == null) GetAllExhibitions();
+            var result = new Exhibition();
+            string Exhibits = string.Empty;
 
-            return _list.Find(el => el.Id == id);
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                var cmd = new MySqlCommand("SELECT * FROM exhibitions INNER JOIN exhibits ON exhibitions.id = exhibits.expositionid WHERE exhibits.expositionid=" + id, conn);
+                using MySqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    result.Id = _sd.SafeGetNumericData(reader, "id");
+                    result.Title = _sd.SafeGetStringData(reader, "exhibitiontitle");
+                    result.Description = _sd.SafeGetStringData(reader, "exhibitiondescription");
+                    result.Image = _sd.SafeGetStringData(reader, "exhibitionimage");
+                    result.Leadup = _sd.SafeGetStringData(reader, "exhibitsleadup").Split('#');
+                    Exhibits = _sd.SafeGetStringData(reader, "exhibitsarray");
+                }
+                conn.Close();
+                result.Exhibits = GetExhibits(Exhibits);
+            }
+
+            return result;
+        }
+
+        private List<Exhibit> GetExhibits(string ids)
+        {
+            List<Exhibit> list = new List<Exhibit>();
+
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM exhibits WHERE id IN(" + ids + ")", conn);
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new Exhibit()
+                        {
+                            Id = reader.GetInt32("id"),
+                            Title = _sd.SafeGetStringData(reader, "title"),
+                            Description = _sd.SafeGetStringData(reader, "description"),
+                            Images = _sd.SafeGetStringData(reader, "images").Split('#'),
+                            InvNum = _sd.SafeGetStringData(reader, "invnum"),
+                        });
+                    }
+                }
+                conn.Close();
+                return list;
+            }
         }
     }
 }

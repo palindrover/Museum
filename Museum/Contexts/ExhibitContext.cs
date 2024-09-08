@@ -61,7 +61,7 @@ namespace Museum.Contexts
                         ExhibitionHallId = _sd.SafeGetNumericData(reader, "exhibitionhallid"),
                         Title = _sd.SafeGetStringData(reader, "title"),
                         Description = _sd.SafeGetStringData(reader, "description"),
-                        Images = _sd.SafeGetStringData(reader, "images"),
+                        Images = _sd.SafeGetStringData(reader, "images").Split('#'),
                         IsTransmitted = _sd.SafeGetNumericData(reader, "istransmitted"),
                         WhereTransmittedId = _sd.SafeGetNumericData(reader, "wheretransmittedid"),
                         InvNum = _sd.SafeGetStringData(reader, "invnum")

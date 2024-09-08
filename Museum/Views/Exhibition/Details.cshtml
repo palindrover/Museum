@@ -2,14 +2,9 @@
 
 <h1>@Model.Title</h1>
 
-@{
-    string[]? links = Model.Image.Split(new char[] { '#' }, StringSplitOptions.RemoveEmptyEntries);
-}
 
-@foreach (string s in links)
-{
-    <img src="@s" />
-}
+<img src="@Model.Image" />
+
 
 <br />
 
@@ -19,5 +14,25 @@
 
 <br />
 
-<a>Лидап:</a>
-<a>@Model.Leadup</a>
+@{
+    int cnt = 0;
+}
+
+@foreach(var item in Model.Exhibits)
+{
+    <p>@Model.Leadup[cnt]</p>
+    <div class="card text-center">
+
+        <img src="@item.Images" style="width: 100%">
+
+        <div class="container">
+
+            <h4><b>@item.Title</b></h4>
+
+            <a asp-controller="Exhibit" asp-action="Details" asp-route-id="@item.Id">Подробнее</a>
+
+        </div>
+
+    </div>
+    cnt++;
+}

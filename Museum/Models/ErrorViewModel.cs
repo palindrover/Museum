@@ -1,4 +1,4 @@
-namespace Museum.Models
+﻿namespace Museum.Models
 {
     public class ErrorViewModel
     {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Museum.Contexts;
 using Museum.Models;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Museum.Controllers
 {
@@ -24,7 +25,7 @@ namespace Museum.Controllers
         {
             GetHttpContext();
 
-            return View(_context.GetById(id));
+            return View(_context.GetExhibitionById(id));
         }
     }
 }
