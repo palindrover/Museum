@@ -37,11 +37,8 @@ namespace Museum.Contexts
 
         public List<Exhibit> GetByHall(int hallId)
         {
-            CheckExhibitListClear();
-
-            MySQGetResult($"SELECT * FROM exhibits WHERE exhibitionhallid = {hallId}");
-
-            return _list;
+            if(_list == null) GetAllExhibits();
+            return _list.FindAll(el => el.ExhibitionHallId == hallId);
         }
 
         private void MySQGetResult(string command)
