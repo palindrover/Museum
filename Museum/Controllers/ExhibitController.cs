@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.Authorization;
 using Museum.Contexts;
 
 namespace Museum.Controllers
@@ -39,6 +40,17 @@ namespace Museum.Controllers
             GetHttpContext();
 
             return View("Index", _context.GetByHall(id));
+        }
+
+        [Authorize(Roles = "1")]
+        [HttpGet]
+        public IActionResult AddExhibit()
+        {
+            var _exhibitCategoryContext = HttpContext.RequestServices.GetService(typeof(CategoryContext)) as CategoryContext;
+            var _exhibitHallContext = HttpContext.RequestServices.GetService(typeof(HallContext)) as HallContext;
+            var _exhibitImagesComtext = HttpContext.RequestServices.GetService(typeof(FileContext)) as FileContext;
+
+            return View();
         }
     }
 }
