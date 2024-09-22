@@ -1,0 +1,77 @@
+﻿@model Museum.Models.AddExhibit
+@{
+    ViewBag.Title = "Добавление экспоната";
+}
+
+<form asp-action="AddExhibit" asp-controller="Exhibit" method="post">
+    <fieldset>
+        <h1>Создание экспоната</h1>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput">Название</label>
+            <div class="col-md-4">
+                <input id="textinput" name="name" type="text" placeholder="Название" class="form-control input-md">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="selectbasic">Выберите категорию</label>
+            <div class="col-md-4">
+                <select id="selectbasic" name="catid" class="form-control">
+                    @foreach (var item in Model.Categories)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="selectbasic">Выберите выставочный зал</label>
+            <div class="col-md-4">
+                <select id="selectbasic" name="hallid" class="form-control">
+                    @foreach (var item in Model.Halls)
+                    {
+                        <option value="@item.Id">@item.HallTitle</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput">Описание</label>
+            <div class="col-md-4">
+                <input id="textinput" name="description" type="text" placeholder="Описание" class="form-control input-md">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput">Инвентарный номер</label>
+            <div class="col-md-4">
+                <input id="textinput" name="invnum" type="text" placeholder="Номер" class="form-control input-md">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Изображения экспоната: </label>
+            <details>
+                <summary>Выбрать изображение:</summary>
+                @for (var i = 0; i < Model.Images.Count(); i++)
+                {
+                    var path = Model.Images.ElementAt(@i).Path;
+                    <input type="checkbox" name="images[@i]" id="@path" value="@path" />
+                    <label for="@path"><img src="@path" width="200px" /></label>
+                }
+            </details>
+        </div>
+
+        <br />
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <button id="singlebutton" name="singlebutton" class="btn btn-primary">Создать экспонат</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>

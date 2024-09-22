@@ -78,5 +78,15 @@ namespace Museum.Contexts
             if (_list == null) GetAllExhibits();
             return _list.Find(element => element.Id == id);
         }
+
+        public void AddExhibit(string name, int catid, int hallid, string description, string invnum, string images)
+        {
+            using MySqlConnection conn = GetConnection();
+            conn.Open();
+            var cmd = conn.CreateCommand();
+            cmd.CommandText = "INSERT INTO exhibits (categoryid, exhibitionhallid, title, description, images, invnum) VALUES ('" + catid +"','" + hallid + "','" + name + "','" + description + "','" + images + "','" + invnum + "')";
+            cmd.ExecuteNonQuery();
+            conn.Close();
+        }
     }
 }

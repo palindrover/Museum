@@ -13,6 +13,9 @@ builder.Services.Add(new ServiceDescriptor(typeof(ExhibitContext), new ExhibitCo
 builder.Services.Add(new ServiceDescriptor(typeof(HallContext), new HallContext(connection)));
 builder.Services.Add(new ServiceDescriptor(typeof(ExhibitionContext), new ExhibitionContext(connection)));
 builder.Services.Add(new ServiceDescriptor(typeof(UserContext), new UserContext(connection)));
+builder.Services.Add(new ServiceDescriptor(typeof(CategoryContext), new CategoryContext(connection)));
+builder.Services.Add(new ServiceDescriptor(typeof(FileContext), new FileContext(connection)));
+builder.Services.Add(new ServiceDescriptor (typeof(AddExhibitContext), new AddExhibitContext(connection)));
 
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

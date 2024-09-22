@@ -42,15 +42,49 @@ namespace Museum.Controllers
             return View("Index", _context.GetByHall(id));
         }
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "True")]
         [HttpGet]
         public IActionResult AddExhibit()
         {
             var _exhibitCategoryContext = HttpContext.RequestServices.GetService(typeof(CategoryContext)) as CategoryContext;
             var _exhibitHallContext = HttpContext.RequestServices.GetService(typeof(HallContext)) as HallContext;
-            var _exhibitImagesComtext = HttpContext.RequestServices.GetService(typeof(FileContext)) as FileContext;
+            var _exhibitImagesContext = HttpContext.RequestServices.GetService(typeof(FileContext)) as FileContext;
+            var _result = HttpContext.RequestServices.GetService(typeof(AddExhibitContext)) as AddExhibitContext;
 
-            return View();
+            return View(_result.GetData(_exhibitHallContext.GetAllHalls(), _exhibitCategoryContext.GetCategories(), _exhibitImagesContext.GetData()));
+        }
+
+        [Authorize(Roles = "True")]
+        [HttpPost]
+        public IActionResult AddExhibit(string name, int catid, int hallid, string description, string invnum, IEnumerable<string> images)
+        {
+            invnum ??= string.Empty;
+            description ??= string.Empty;
+            name ??= string.Empty;
+
+            string imagesresult = GetImages(images);
+            var _AddExContext = HttpContext.RequestServices.GetService(typeof(ExhibitContext)) as ExhibitContext;
+            _AddExContext.AddExhibit(name, catid, hallid, description, invnum, imagesresult);
+            return RedirectToAction("Index");
+        }
+
+        private static string GetImages(IEnumerable<string> images) 
+        {
+            if(images.Count() == 0) return string.Empty;
+
+            var tempPath = images.First().Split('\\');
+            var path = string.Join("/", tempPath);
+            var result = path;
+
+            for (int i = 1; i < images.Count(); i++) 
+            {
+                result += "#";
+                tempPath = images.ElementAt(i).Split('\\');
+                path = string.Join("/", tempPath);
+                result += path;
+            }
+
+            return result;
         }
     }
 }

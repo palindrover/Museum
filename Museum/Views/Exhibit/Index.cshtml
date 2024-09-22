@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Museum.Models.Exhibit>
+﻿@using System.Security.Claims
+@model IEnumerable<Museum.Models.Exhibit>
 
 @{
     int prevCat = Model.First().CategoryId;
@@ -27,6 +28,11 @@
             </div>
 
         </div>
+    }
+
+    @if(User.HasClaim(ClaimsIdentity.DefaultRoleClaimType, "True"))
+    {
+        <a asp-action="AddExhibit" asp-controller="Exhibit">Добавить экспонат</a>
     }
 
 </div>

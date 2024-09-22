@@ -3,7 +3,7 @@ using Museum.Models;
 
 namespace Museum.Contexts
 {
-    public class FileContext
+    public class FileContext(string connectionString) : BaseContext(connectionString)
     {
         private readonly string _path = "wwwroot\\Files";
         internal IEnumerable<MyFile> GetData()
