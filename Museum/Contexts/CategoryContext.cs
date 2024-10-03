@@ -17,7 +17,7 @@ namespace Museum.Contexts
 
         private void MySQGetResult(string command)
         {
-            using (MySqlConnection conn = new MySqlConnection())
+            using (MySqlConnection conn = GetConnection())
             {
                 conn.Open();
                 var cmd = new MySqlCommand(command, conn);
