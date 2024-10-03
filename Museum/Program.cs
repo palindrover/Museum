@@ -4,8 +4,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddMvc();
 
 var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -25,7 +24,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                     options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Login/Index");
                 });
 
-
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 

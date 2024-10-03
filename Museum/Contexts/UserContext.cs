@@ -31,7 +31,7 @@ namespace Museum.Contexts
                         Login = _sd.SafeGetStringData(reader, "login"),
                         Pass = _sd.SafeGetStringData(reader, "pass"),
                         Salt = _sd.SafeGetStringData(reader, "salt"),
-                        Role = _sd.SafeGetNumericData(reader, "r"),
+                        Role = _sd.SafeGetBoolData(reader, "r"),
                     });
                 }
             }

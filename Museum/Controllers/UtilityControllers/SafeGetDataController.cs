@@ -16,5 +16,10 @@ namespace Museum.Controllers.UtilityControllers
             if(!reader.IsDBNull(column)) return reader.GetInt32(column);
             else return 0;
         }
+
+        public bool SafeGetBoolData(MySqlDataReader reader, string column)
+        {
+            if(! reader.IsDBNull(column)) return reader.GetBoolean(column); else return false;
+        }
     }
 }

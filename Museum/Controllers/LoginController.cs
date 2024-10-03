@@ -39,6 +39,7 @@ namespace Museum.Controllers
                     if (user.Login != model.Login || user.Pass != Convert.ToBase64String(GenerateSha256Hash(model.Password, user.Salt)))
                         continue;
 
+                    await Authenticate(user);
                     return RedirectToAction("Index", "Home");
                 }
 
@@ -53,7 +54,7 @@ namespace Museum.Controllers
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Role.ToString())
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.ToString())
             };
 
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);

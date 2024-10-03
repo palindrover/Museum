@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -31,9 +33,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Hall" asp-action="Index">Выставочные залы</a>
                         </li>
-                        <li style="float:right" class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Log in</a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated && User.HasClaim(ClaimsIdentity.DefaultRoleClaimType, "True"))
+                        {
+                            <li style="float:right" class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">Log out</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li style="float:right" class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Log in</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
