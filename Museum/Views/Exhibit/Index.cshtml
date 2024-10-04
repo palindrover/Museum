@@ -25,6 +25,14 @@
 
                 <a asp-controller="Exhibit" asp-action="Details" asp-route-id="@item.Id">Подробнее</a>
 
+                @if(User.HasClaim(ClaimsIdentity.DefaultRoleClaimType, "True"))
+                {
+                    <br />
+                    <form asp-action="Delete" asp-controller="Exhibit" method="post" asp-route-id="@item.Id">
+                        <input type="submit" value="Удалить" onclick='return confirm("Вы действительно хотите удалить этот экспонат?");' />
+                    </form>
+                }
+
             </div>
 
         </div>

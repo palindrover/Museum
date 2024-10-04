@@ -86,5 +86,20 @@ namespace Museum.Controllers
 
             return result;
         }
+
+        [Authorize(Roles = "True")]
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            if (id != null)
+            {
+                var delContext = HttpContext.RequestServices.GetService(typeof(ExhibitContext)) as ExhibitContext;
+                delContext.Delete(id);
+                return RedirectToAction("Index");
+            }
+
+            return NotFound();
+        }
+
     }
 }
