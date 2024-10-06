@@ -101,5 +101,28 @@ namespace Museum.Controllers
             return NotFound();
         }
 
+        [Authorize(Roles = "True")]
+        public IActionResult Edit(int id)
+        {
+            var _exhibitContext = HttpContext.RequestServices.GetService(typeof(ExhibitContext)) as ExhibitContext;
+            var _catContext = HttpContext.RequestServices.GetService(typeof(CategoryContext)) as CategoryContext;
+            var _hallContext = HttpContext.RequestServices.GetService(typeof (HallContext)) as HallContext;
+            var _fileContext = HttpContext.RequestServices.GetService(typeof(FileContext)) as FileContext;
+            var result = HttpContext.RequestServices.GetService(typeof(EditExhibitContext)) as EditExhibitContext;
+
+            return View(result.GetData(_exhibitContext.GetExhibitById(id), _hallContext.GetAllHalls(), _catContext.GetCategories(), _fileContext.GetData()));
+        }
+
+        [Authorize(Roles = "True")]
+        [HttpPost]
+        public IActionResult Edit(int id, int catid,int hallid, string title, string description, int invnum, IEnumerable<string> images)
+        {
+            var _exhibitContext = HttpContext.RequestServices.GetService(typeof(ExhibitContext)) as ExhibitContext;
+            string imageresult = GetImages(images);
+
+            _exhibitContext.Edit(id, catid, hallid, title, description, invnum, imageresult);
+
+            return RedirectToAction("Index");
+        }
     }
 }

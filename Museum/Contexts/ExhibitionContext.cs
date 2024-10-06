@@ -79,7 +79,7 @@ namespace Museum.Contexts
             using (MySqlConnection conn = GetConnection())
             {
                 conn.Open();
-                MySqlCommand cmd = new MySqlCommand("SELECT * FROM exhibits WHERE id IN(" + ids + ")", conn);
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM exhibits WHERE id IN('" + ids + "')", conn);
 
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {

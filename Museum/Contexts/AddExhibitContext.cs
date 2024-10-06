@@ -6,7 +6,7 @@ namespace Museum.Contexts
     {
         public AddExhibit GetData(IEnumerable<Hall> halls, IEnumerable<Category> categories, IEnumerable<MyFile> files)
         {
-            return new AddExhibit { Halls = halls, Categories = categories, Images = files };
+            return new AddExhibit { Halls = halls, Categories = categories, Images = files};
         }
     }
 }

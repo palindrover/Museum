@@ -28,6 +28,8 @@
                 @if(User.HasClaim(ClaimsIdentity.DefaultRoleClaimType, "True"))
                 {
                     <br />
+                    <a asp-controller="Exhibit" asp-action="Edit" asp-route-id="@item.Id">Изменить</a>
+                    <br />
                     <form asp-action="Delete" asp-controller="Exhibit" method="post" asp-route-id="@item.Id">
                         <input type="submit" value="Удалить" onclick='return confirm("Вы действительно хотите удалить этот экспонат?");' />
                     </form>

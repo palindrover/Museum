@@ -84,7 +84,8 @@ namespace Museum.Contexts
             using MySqlConnection conn = GetConnection();
             conn.Open();
             var cmd = conn.CreateCommand();
-            cmd.CommandText = "INSERT INTO exhibits (categoryid, exhibitionhallid, title, description, images, invnum) VALUES ('" + catid +"','" + hallid + "','" + name + "','" + description + "','" + images + "','" + invnum + "')";
+            cmd.CommandText = "INSERT INTO exhibits (categoryid, exhibitionhallid, title, description, images, invnum) VALUES ('" + catid +"','" + 
+                hallid + "','" + name + "','" + description + "','" + images + "','" + invnum  +"')";
             cmd.ExecuteNonQuery();
             conn.Close();
         }
@@ -94,6 +95,17 @@ namespace Museum.Contexts
             using MySqlConnection conn = GetConnection();
             conn.Open();
             MySqlCommand cmd = new MySqlCommand("DELETE FROM exhibits WHERE id=" + id, conn);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+
+        public void Edit(int id, int catid, int hallid, string title, string description, int invnum, string images)
+        {
+            using MySqlConnection conn = GetConnection();
+            conn.Open();
+            MySqlCommand cmd = new MySqlCommand("UPDATE exhibits SET categoryid='" + catid + "',exhibitionhallid='" + hallid 
+                + "',title='" + title + "',description='" + description + "',images='" + images + "',invnum='" + invnum + "' WHERE id=" + id, conn);
+
             cmd.ExecuteNonQuery();
             conn.Close();
         }

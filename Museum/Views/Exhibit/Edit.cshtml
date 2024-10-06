@@ -1,0 +1,73 @@
+﻿@model Museum.Models.EditExhibit
+
+<form asp-action="Edit" asp-controller="Exhibit" method="post">
+    <input type="hidden" name="id" value="@Model.Result.Id"/>
+	<div class="mt-10">
+		<label asp-for="@Model.Result.Title">Название экспоната: </label>
+		<input type="text" asp-for="@Model.Result.Title" name="title" placeholder="@Model.Result.Title" onfocus="this.placeholder = ''" onblur="this.placeholder = @Model.Result.Title" required class="single-input">
+	</div>
+	<div class="mt-10">
+		<label asp-for="@Model.Result.Description">Описание: </label>
+		<textarea class="single-textarea" asp-for="@Model.Result.Description" name="description" placeholder="Message" onfocus="this.placeholder = ''" onblur="this.placeholder = @Model.Result.Description" required></textarea>
+	</div>
+	<div class="mt-10">
+		<label asp-for="@Model.Result.InvNum">Инвентарный номер: </label>
+		<input asp-for="@Model.Result.InvNum" type="text" name="invnum" placeholder="@Model.Result.InvNum" onfocus="this.placeholder = ''" onblur="this.placeholder = @Model.Result.InvNum" required class="single-input">
+	</div>
+	<div class="mt-10">
+		<label asp-for="@Model.Result.CategoryId">Категория экспоната: </label><br />
+		<p>
+			<select asp-for="@Model.Result.CategoryId" name="catid">
+				@foreach (var item in Model.Categories)
+				{
+					if (@Model.Result.CategoryId == @item.Id)
+					{
+						<option value="@item.Id" selected="true">@item.Name</option>
+					}
+					else
+					{
+						<option value="@item.Id">@item.Name</option>
+					}
+				}
+			</select>
+		</p><br />
+	</div>
+
+	<div class="mt-10">
+		<p>
+			<label asp-for="@Model.Result.ExhibitionHallId">Выставочный зал: </label><br />
+			<select asp-for="@Model.Result.ExhibitionHallId" name="hallid">
+				@foreach (var item in Model.Halls)
+				{
+					if (Model.Result.ExhibitionHallId == item.Id)
+					{
+						<option value="@item.Id" selected="true">@item.HallTitle</option>
+					}
+					else
+					{
+						<option value="@item.Id">@item.HallTitle</option>
+					}
+
+				}
+			</select>
+		</p><br />
+	</div>
+
+
+	<div class="mt-10">
+		<label>Изображения экспоната: </label>
+		<details>
+			<summary style="color:#001d38">Выбрать изображение(я):</summary>
+			@for (var i = 0; i < Model.Images.Count(); i++)
+			{
+				var path = Model.Images.ElementAt(@i).Path;
+				<input type="checkbox" name="images" id="@path" value="@path" />
+				<label for="@path"><img src="@path" width="200px" /></label>
+			}
+		</details>
+	</div>
+	<div class="mt-10">
+		<input type="submit" class="genric-btn info-border" value="Сохранить" />
+	</div>
+
+</form>
