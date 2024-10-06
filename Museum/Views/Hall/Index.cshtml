@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<Museum.Models.Hall>
+@using System.Security.Claims
 
 <div class="display">
 
@@ -17,6 +18,13 @@
             </div>
 
         </div>
+    }
+
+    <br />
+
+    @if(User.HasClaim(ClaimsIdentity.DefaultRoleClaimType, "True"))
+    {
+        <a asp-action="AddHall" asp-controller="Hall">Добавить зал</a>
     }
 
 </div>

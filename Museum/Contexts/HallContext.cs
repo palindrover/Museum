@@ -45,5 +45,16 @@ namespace Museum.Contexts
 
             return _list;
         }
+
+        public void AddHall(string title, string address, string location, string image)
+        {
+            using MySqlConnection conn = GetConnection();
+            conn.Open();
+            var cmd = conn.CreateCommand();
+            cmd.CommandText = "INSERT INTO exhibitionhalls (halltitle, halladdress, halllocation, hallimage) VALUES('"
+                + title + "','" + address + "','" + location + "','" + image + "')";
+            cmd.ExecuteNonQuery();
+            conn.Close();
+		}
     }
 }

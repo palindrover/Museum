@@ -1,19 +1,11 @@
 ﻿@using System.Security.Claims
 @model IEnumerable<Museum.Models.Exhibit>
 
-@{
-    int prevCat = Model.First().CategoryId;
-}
 
 <div class="display">
 
     @foreach(Exhibit item in Model)
     {
-        @if(item.CategoryId != prevCat)
-        {
-
-            prevCat = item.CategoryId;
-        }
 
         <div class="card text-center">
 
