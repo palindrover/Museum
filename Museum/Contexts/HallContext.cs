@@ -66,5 +66,15 @@ namespace Museum.Contexts
             cmd.ExecuteNonQuery();
             conn.Close();
         }
+
+        public void Delete(int id)
+        {
+            using MySqlConnection conn = GetConnection();
+            conn.Open();
+            var cmd = conn.CreateCommand();
+            cmd.CommandText = "DELETE FROM exhibitionhalls WHERE id=" + id;
+            cmd.ExecuteNonQuery();
+            conn.Close();
+		}
     }
 }

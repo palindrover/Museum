@@ -67,5 +67,19 @@ namespace Museum.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [Authorize(Roles = "True")]
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            if(id != null)
+            {
+                var _deleteContext = HttpContext.RequestServices.GetService(typeof(HallContext)) as HallContext;
+                _deleteContext.Delete(id);
+                return RedirectToAction("Index");
+            }
+
+            return NotFound();
+        }
     }
 }

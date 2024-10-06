@@ -13,14 +13,17 @@
 
                 <h4><b>@item.HallTitle</b></h4>
 
+                <a asp-controller="Exhibit" asp-action="Hall" asp-route-id="@item.Id">Экспонаты</a>
+                <br />
+
                 @if (User.HasClaim(ClaimsIdentity.DefaultRoleClaimType, "True"))
                 {
                     <a asp-action="Edit" asp-controller="Hall" asp-route-id="@item.Id">Изменить</a>
+                    <br />
+                    <form asp-action="Delete" asp-controller="Hall" method="post" asp-route-id="@item.Id">
+                        <input type="submit" value="Удалить" onclick='return confirm("Вы действительно хотите удалить этот зал?");' />
+                    </form>
                 }
-
-                <br />
-
-                <a asp-controller="Exhibit" asp-action="Hall" asp-route-id="@item.Id">Экспонаты</a>
 
             </div>
 
