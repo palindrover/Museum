@@ -59,7 +59,7 @@
                 @for (var i = 0; i < Model.Images.Count(); i++)
                 {
                     var path = Model.Images.ElementAt(@i).Path;
-                    <input type="checkbox" name="images[@i]" id="@path" value="@path" />
+                    <input type="checkbox" name="images" id="@path" value="@path" />
                     <label for="@path"><img src="@path" width="200px" /></label>
                 }
             </details>
