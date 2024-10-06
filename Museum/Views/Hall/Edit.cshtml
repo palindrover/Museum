@@ -1,0 +1,39 @@
+﻿@model Museum.Models.EditHall
+
+<form asp-action="Edit" asp-controller="Hall" method="post">
+    <input type="hidden" name="id" value="@Model.Hall.Id"/>
+
+	<div class="mt-10">
+		<label asp-for="@Model.Hall.HallTitle">Название зала: </label>
+		<input type="text" asp-for="@Model.Hall.HallTitle" name="title" placeholder="@Model.Hall.HallTitle" onfocus="this.placeholder = ''" onblur="this.placeholder = @Model.Hall.HallTitle" required class="single-input">
+	</div>
+
+	<div class="mt-10">
+		<label asp-for="@Model.Hall.HallAddress">Адрес: </label>
+		<input type="text" asp-for="@Model.Hall.HallAddress" name="hallAddress" placeholder="@Model.Hall.HallAddress" onfocus="this.placeholder = ''" onblur="this.placeholder = @Model.Hall.HallAddress" required class="single-input">
+	</div>
+
+	<div class="mt-10">
+		<label asp-for="@Model.Hall.HallLocation">Локация: </label>
+		<input type="text" asp-for="@Model.Hall.HallLocation" name="hallLocation" placeholder="@Model.Hall.HallLocation" onfocus="this.placeholder = ''" onblur="this.placeholder = @Model.Hall.HallLocation" required class="single-input">
+	</div>
+
+	<div class="form-group">
+		<label>Изображение: </label>
+		<details>
+			@for (var i = 0; i < Model.Images.Count(); i++)
+			{
+				var path = Model.Images.ElementAt(@i).Path;
+				<input type="radio" name="hallImage" id="@path" value="@path" />
+				<label for="@path"><img src="@path" width="200px" /></label>
+			}
+		</details>
+	</div>
+
+	<div class="form-group">
+		<div class="col-md-4">
+			<button id="singlebutton" name="singlebutton" class="btn btn-primary">Изменить</button>
+		</div>
+	</div>
+
+</form>

@@ -56,5 +56,15 @@ namespace Museum.Contexts
             cmd.ExecuteNonQuery();
             conn.Close();
 		}
+
+        public void Edit(int id, string title, string address, string location, string image)
+        {
+            using MySqlConnection conn = GetConnection();
+            conn.Open();
+            var cmd = conn.CreateCommand();
+            cmd.CommandText = "UPDATE exhibitionhalls SET halltitle='" + title + "', halladdress='" + address + "', halllocation='" + location + "', hallimage='" + image +"' WHERE id=" + id;
+            cmd.ExecuteNonQuery();
+            conn.Close();
+        }
     }
 }

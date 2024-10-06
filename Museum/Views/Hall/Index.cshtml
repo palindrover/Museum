@@ -13,6 +13,13 @@
 
                 <h4><b>@item.HallTitle</b></h4>
 
+                @if (User.HasClaim(ClaimsIdentity.DefaultRoleClaimType, "True"))
+                {
+                    <a asp-action="Edit" asp-controller="Hall" asp-route-id="@item.Id">Изменить</a>
+                }
+
+                <br />
+
                 <a asp-controller="Exhibit" asp-action="Hall" asp-route-id="@item.Id">Экспонаты</a>
 
             </div>

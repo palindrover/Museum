@@ -16,6 +16,7 @@ builder.Services.Add(new ServiceDescriptor(typeof(CategoryContext), new Category
 builder.Services.Add(new ServiceDescriptor(typeof(FileContext), new FileContext(connection)));
 builder.Services.Add(new ServiceDescriptor (typeof(AddExhibitContext), new AddExhibitContext(connection)));
 builder.Services.Add(new ServiceDescriptor(typeof(EditExhibitContext), new EditExhibitContext(connection)));
+builder.Services.Add(new ServiceDescriptor(typeof(EditHallContext), new EditHallContext(connection)));
 
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

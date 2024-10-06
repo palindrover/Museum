@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Museum.Contexts;
+using Museum.Models;
 using Org.BouncyCastle.Security;
 
 namespace Museum.Controllers
@@ -43,6 +44,27 @@ namespace Museum.Controllers
             }
 
             _hallConetxt.AddHall(title, hallAddress, hallLocation, hallImage);
+            return RedirectToAction("Index");
+        }
+
+        [Authorize(Roles = "True")]
+        public IActionResult Edit(int id)
+        {
+            var _hallContext = HttpContext.RequestServices.GetService(typeof(HallContext)) as HallContext;
+            var _imageContext = HttpContext.RequestServices.GetService(typeof(FileContext)) as FileContext;
+
+            var _editHallContext = HttpContext.RequestServices.GetService(typeof(EditHallContext)) as EditHallContext;
+
+            return View(_editHallContext.GetData(_hallContext.GetAllHalls().FirstOrDefault(e => e.Id == id), _imageContext.GetData()));
+        }
+
+        [Authorize(Roles = "True")]
+        [HttpPost]
+        public IActionResult Edit(int id, string title, string hallAddress, string hallLocation, string hallImage)
+        {
+            var _hallContext = HttpContext.RequestServices.GetService(typeof(HallContext)) as HallContext;
+            _hallContext.Edit(id, title, hallAddress, hallLocation, hallImage);
+
             return RedirectToAction("Index");
         }
     }

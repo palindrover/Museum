@@ -26,13 +26,13 @@
         </div>
 
         <div class="form-group">
-            <label>Изображение</label>
+            <label>Изображение: </label>
             <details>
-                <symmary>Выберите изображение</symmary>
-                @foreach(var item in Model)
+                @for (var i = 0; i < Model.Count(); i++)
                 {
-                    <input typeof="radio" name="hallImage" id="@item.Path" value="@item.Path"/>
-                    <label for="@item.Path"><img src="@item.Path" width="200px"/></label>
+                    var path = Model.ElementAt(@i).Path;
+                    <input type="radio" name="HallImage" id="@path" value="@path" />
+                    <label for="@path"><img src="@path" width="200px" /></label>
                 }
             </details>
         </div>
