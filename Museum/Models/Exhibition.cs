@@ -6,7 +6,7 @@
         public string? Title { get; set; }
         public string? Description { get; set; }
         public string? Image { get; set; }
-        public List<Exhibit> Exhibits { get; set; }
+        public IEnumerable<Exhibit> Exhibits { get; set; }
         public string[]? Leadup { get; set; }
 
     }

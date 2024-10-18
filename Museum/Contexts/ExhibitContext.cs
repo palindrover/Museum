@@ -109,5 +109,14 @@ namespace Museum.Contexts
             cmd.ExecuteNonQuery();
             conn.Close();
         }
+
+        public void AddExhibition(IEnumerable<int> exhibits, int id)
+        {
+            using MySqlConnection conn = GetConnection();
+            conn.Open();
+            var cmd = conn.CreateCommand();
+            cmd.CommandText = "UPDATE exhibits SET expositionid='" + id +"' WHERE id IN (" + string.Join(",", exhibits) + ")";
+            cmd.ExecuteNonQuery();
+		}
     }
 }

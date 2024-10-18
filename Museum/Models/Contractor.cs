@@ -3,6 +3,7 @@
     public class Contractor
     {
         public int Id { get; set; }
+        public string? Surname { get; set; }
         public string? Name { get; set; }
         public string? Patrname { get; set; }
         public string? Companyname { get; set; }

@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<Museum.Models.Exhibition>
-
+@using System.Security.Claims
+    
 <div class="display">
 
     @foreach (Exhibition item in Model)
@@ -12,11 +13,23 @@
 
                 <h4><b>@item.Title</b></h4>
 
+                @if(User.HasClaim(ClaimsIdentity.DefaultRoleClaimType, "True"))
+                {
+                    <form asp-controller="Exhibition" asp-action="Delete" asp-route-id="@item.Id" method="post">
+                        <input type="submit" value="Удалить" onclick='return confirm("Вы действительно хотите удалить этe экспозицию?");' />
+                    </form>
+                }
+
                 <a asp-controller="Exhibition" asp-action="Details" asp-route-id="@item.Id">Подробнее</a>
 
             </div>
 
         </div>
+    }
+
+    @if (User.HasClaim(ClaimsIdentity.DefaultRoleClaimType, "True"))
+    {
+        <a asp-controller="Exhibition" asp-action="Add">Добавить экспозицию</a>
     }
 
 </div>

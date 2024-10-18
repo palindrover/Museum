@@ -99,5 +99,43 @@ namespace Museum.Contexts
                 return list;
             }
         }
+
+        public int Add(string title, string description, string image, string exhibits, string leadups)
+        {
+			var result = 0;
+			using MySqlConnection conn = GetConnection();
+			var ex = exhibits.First().ToString();
+			for (var i = 1; i < exhibits.Count(); i++)
+			{
+				ex += ",";
+				ex += exhibits.ElementAt(i).ToString();
+			}
+			var lu = leadups.First().ToString();
+			for (var i = 1; i < leadups.Count(); i++)
+			{
+				lu += "#";
+				lu += leadups.ElementAt(i).ToString();
+			}
+			conn.Open();
+			var cmd = conn.CreateCommand();
+            cmd.CommandText = "INSERT INTO exhibitions (exhibitiontitle, exhibitiondescription, exhibitionimage, exhibitsarray, exhibitsleadup) VALUES ('" +
+                title + "','" + description + "','" + image + "','" + exhibits + "','" + leadups + "')";
+            cmd.ExecuteNonQuery();
+			cmd.CommandText = "SELECT LAST_INSERT_ID()";
+			var reader = cmd.ExecuteReader();
+
+			if (reader.Read()) result = reader.GetInt32("LAST_INSERT_ID()");
+			conn.Close();
+			return result;
+		}
+
+        public void Delete(int id)
+        {
+            using MySqlConnection conn = GetConnection();
+            conn.Open();
+            var cmd = conn.CreateCommand();
+            cmd.CommandText = "DELETE FROM exhibitions WHERE id=" + id;
+            cmd.ExecuteNonQuery();
+        }
     }
 }

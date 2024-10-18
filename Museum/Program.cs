@@ -14,10 +14,11 @@ builder.Services.Add(new ServiceDescriptor(typeof(ExhibitionContext), new Exhibi
 builder.Services.Add(new ServiceDescriptor(typeof(UserContext), new UserContext(connection)));
 builder.Services.Add(new ServiceDescriptor(typeof(CategoryContext), new CategoryContext(connection)));
 builder.Services.Add(new ServiceDescriptor(typeof(FileContext), new FileContext(connection)));
-builder.Services.Add(new ServiceDescriptor (typeof(AddExhibitContext), new AddExhibitContext(connection)));
+builder.Services.Add(new ServiceDescriptor(typeof(AddExhibitContext), new AddExhibitContext(connection)));
 builder.Services.Add(new ServiceDescriptor(typeof(EditExhibitContext), new EditExhibitContext(connection)));
 builder.Services.Add(new ServiceDescriptor(typeof(EditHallContext), new EditHallContext(connection)));
-
+builder.Services.Add(new ServiceDescriptor(typeof(AddExhibitionContext), new AddExhibitionContext(connection)));
+builder.Services.Add(new ServiceDescriptor(typeof(ContractorContext), new ContractorContext(connection)));
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>

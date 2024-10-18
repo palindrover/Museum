@@ -35,6 +35,10 @@
                         </li>
                         @if (User.Identity.IsAuthenticated && User.HasClaim(ClaimsIdentity.DefaultRoleClaimType, "True"))
                         {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Contractor" asp-action="Index">Контрагенты</a>
+                            </li>
+
                             <li style="float:right" class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">Log out</a>
                             </li>

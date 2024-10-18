@@ -1,0 +1,32 @@
+﻿@model Museum.Models.Contractor
+
+<form asp-action="Edit" asp-controller="Contractor" method="post">
+	<input type="hidden" name="id" value="@Model.Id">
+	<p>
+		<label asp-for="@Model.Surname">Фамилия: </label>
+		<input type="text" asp-for="@Model.Surname" name="surname">
+	</p>
+	<p>
+		<label asp-for="@Model.Name">Имя: </label>
+		<input type="textarea" asp-for="@Model.Name" name="name">
+	</p>
+	<p>
+		<label asp-for="@Model.Patrname">Отчество: </label>
+		<input type="text" asp-for="@Model.Patrname" name="patrname">
+	</p>
+	<p>
+		<label asp-for="@Model.Companyname">Название компании: </label>
+		<input type="text" asp-for="@Model.Companyname" name="companyname">
+	</p>
+	<p>
+		<label asp-for="@Model.Tel">Телефон: </label>
+		<input type="text" asp-for="@Model.Tel" name="tel">
+	</p>
+	<p>
+		<label asp-for="@Model.Email">Адрес электронной почты: </label>
+		<input type="text" asp-for="@Model.Email" name="email">
+	</p>
+	<p>
+		<input type="submit" value="Сохранить" />
+	</p>
+</form>

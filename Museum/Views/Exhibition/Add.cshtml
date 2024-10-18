@@ -1,0 +1,135 @@
+﻿@model Museum.Models.AddExhibition
+@{
+	ViewBag.Title = "Создание экспозиции'";
+}
+
+<div style="visibility:hidden">
+	<select class="myselect" style="visibility:hidden" id="clonabledropdown">
+		@foreach (var item in Model.Exhibits)
+		{
+			<option value="@item.Id">Номер: @item.InvNum (@item.Title)</option>
+		}
+	</select>
+	<input style="visibility:hidden" type="text" id="clonabletext" value="Описание">
+	<input style="visibility:hidden" type="button" id="clonnablebutton" onclick="DeleteField(-)" value="Удалить" />
+</div><br/>
+
+
+<form asp-action="Add" asp-controller="Exhibition" method="post">
+	<p>
+		<label>Название экспозиции: </label>
+		<input type="text" name="exhibitiontitle">
+	</p>
+	<p>
+		<label>Описание: </label>
+		<input type="textarea" name="exhibitiondescription">
+	</p>
+
+
+	<p>
+		<label>Изображение экспозиции: </label>
+		<details>
+			<summary>Выбрать изображение:</summary>
+			@foreach (var item in Model.Images)
+			{
+				<input type="radio" name="exhibitionimage" id="@item.Path" value="@item.Path" />
+				<label for="@item.Path"><img src="@item.Path" width="200px" /></label>
+			}
+		</details>
+	</p>
+
+	<p>
+		<h5>Выбор экспонатов и их описание: </h5>
+	</p>
+
+	<p id="exhib[0]">
+		<select name="exhibitsarray[0]">
+			@foreach (var item in Model.Exhibits)
+			{
+				<option value="@item.Id">Номер: @item.InvNum (@item.Title)</option>
+			}
+		</select>
+		<br />
+		<input type="text" name="exhibitsleadup[0]" value="Описание">
+		<input type="button" onclick="DeleteField(0)" value="Удалить" />
+	</p>
+
+	<div id="addable"></div>
+
+	<p>
+		<input type="button" onclick="AddNewFields()" value="Добавить экспонат" />
+	</p>
+	<p>
+		<input type="submit" value="Сохранить" />
+	</p>
+
+</form>
+<script type="text/javascript">
+	var num = 1
+		var br = document.createElement("br")
+	var p = document.createElement("p")
+	p.setAttribute("id", "exhib[" + num + "]")
+	function AddNewFields() {
+		p.setAttribute("id", "exhib[" + num + "]")
+		document.getElementById("addable").appendChild(p.cloneNode())
+
+		var s = document.getElementById("clonabledropdown")
+		var clone = s.cloneNode(true)
+		var curName = "exhibitsarray[0]"
+		var name = "exhibitsarray[" + num + "]"
+		clone.id = "cloneddroplist"
+		clone.setAttribute("name", name)
+		clone.style.visibility=''
+		clone.style.display=''
+		var pclone = document.getElementById("exhib[" + num + "]").appendChild(clone)
+		pclone.style.visibility = ''
+		document.getElementById("exhib[" + num + "]").appendChild(br.cloneNode())
+
+		s = document.getElementById("clonabletext")
+		clone = s.cloneNode(true)
+		curName = "exhibitsleadup[0]"
+		name = "exhibitsleadup[" + num + "]"
+		clone.id = "clonedtext"
+		clone.setAttribute("name", name)
+		clone.style.visibility=''
+		var tclone = document.getElementById("exhib[" + num + "]").appendChild(clone)
+		tclone.style.visibility = ''
+
+
+		s = document.getElementById("clonnablebutton")
+		clone = s.cloneNode(true)
+		clone.setAttribute("onclick", "DeleteField(" + num + ")")
+		var bclone = document.getElementById("exhib[" + num + "]").appendChild(clone)
+		bclone.style.visibility = ''
+		document.getElementById("exhib[" + num + "]").appendChild(br.cloneNode())
+
+		num++
+	}
+
+	function DeleteField(id) {
+
+		var parentToDelete = document.getElementById("exhib[" + id + "]")
+
+		parentToDelete.remove()
+
+
+
+		var index = 0
+		for (var i = 0; i < num; i++) {
+			var parentToUpdate = document.getElementById("exhib[" + i + "]")
+			if (parentToUpdate == null) {
+				continue
+			}
+			else {
+				var nameDrop = "exhibitsarray[" + i + "]"
+				var nameText = "exhibitsleadup[" + i + "]"
+				parentToUpdate.setAttribute("name", "exhib[" + index + "]")
+				parentToUpdate.setAttribute("id", "exhib[" + index + "]")
+				document.getElementsByName(nameDrop)[0].setAttribute("name", "exhibitsarray[" + index + "]")
+				document.getElementsByName(nameText)[0].setAttribute("name", "exhibitsleadup[" + index + "]")
+			}
+			index++
+		}
+		num--
+	}
+</script>
