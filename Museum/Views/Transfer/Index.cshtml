@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Transfer>
+
+<h2 align="center">Перемещения</h2>
+
+<form asp-controller="Transfers" asp-action="AddTransfer" method="post">
+    <input type="submit" value="Добавить перемещение" />
+</form>
+<br />
+
+<table width="100%" border="1">
+    <tr>
+        <td style="text-align:center;font-weight:bold">Экспонат</td>
+        <td style="text-align:center;font-weight:bold">Цель отправки</td>
+        <td style="text-align:center;font-weight:bold">Дата отправки</td>
+        <td style="text-align:center;font-weight:bold">Дата возвращения</td>
+        <td style="text-align:center;font-weight:bold">Документ об отправке</td>
+        <td style="text-align:center;font-weight:bold">Полная информация</td>
+
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.ExhibTitle)</td>
+            <td>@Html.DisplayFor(modelItem => item.Purpose)</td>
+            <td>@Html.DisplayFor(modelItem => item.TransferDate)</td>
+            <td>@Html.DisplayFor(modelItem => item.Returns)</td>
+            <td>@Html.DisplayFor(modelItem => item.DocNum)</td>
+            <td>
+                <a href="@Url.Action("Transfer", "Transfers", new { transferID = item.ID})">Подробнее</a>
+                <br />
+                <a asp-action="Edit" asp-controller="Transfers" asp-route-id="@item.ID">Изменить</a>
+                <form asp-controller="Transfer" asp-action="Delete" method="post" asp-route-id="@item.ID">
+                    <input type="hidden" name="invNum" value="@item.ExhibInvNum" />
+                    <input type="submit" value="Удалить" OnClick='return confirm("Вы действительно хотите удалить это перемещение?");' />
+                </form>
+            </td>
+        </tr>
+    }
+</table>

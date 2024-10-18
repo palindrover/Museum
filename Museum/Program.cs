@@ -19,6 +19,7 @@ builder.Services.Add(new ServiceDescriptor(typeof(EditExhibitContext), new EditE
 builder.Services.Add(new ServiceDescriptor(typeof(EditHallContext), new EditHallContext(connection)));
 builder.Services.Add(new ServiceDescriptor(typeof(AddExhibitionContext), new AddExhibitionContext(connection)));
 builder.Services.Add(new ServiceDescriptor(typeof(ContractorContext), new ContractorContext(connection)));
+builder.Services.Add(new ServiceDescriptor(typeof(TransferContext), new TransferContext(connection)));
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
