@@ -118,5 +118,15 @@ namespace Museum.Contexts
             cmd.CommandText = "UPDATE exhibits SET expositionid='" + id +"' WHERE id IN (" + string.Join(",", exhibits) + ")";
             cmd.ExecuteNonQuery();
 		}
+
+        public void SetTransfer(int id, int transferid)
+        {
+            using MySqlConnection conn = GetConnection();
+            conn.Open();
+            var cmd = conn.CreateCommand();
+            cmd.CommandText = "UPDATE exhibits SET wheretransmittedid=" + transferid + " WHERE id=" + id;
+            cmd.ExecuteNonQuery();
+            conn.Close();
+        }
     }
 }

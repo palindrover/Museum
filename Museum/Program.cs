@@ -20,6 +20,7 @@ builder.Services.Add(new ServiceDescriptor(typeof(EditHallContext), new EditHall
 builder.Services.Add(new ServiceDescriptor(typeof(AddExhibitionContext), new AddExhibitionContext(connection)));
 builder.Services.Add(new ServiceDescriptor(typeof(ContractorContext), new ContractorContext(connection)));
 builder.Services.Add(new ServiceDescriptor(typeof(TransferContext), new TransferContext(connection)));
+builder.Services.Add(new ServiceDescriptor(typeof(AddTransferContext), new AddTransferContext(connection)));
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>

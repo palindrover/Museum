@@ -1,0 +1,89 @@
+﻿@model Museum.Models.AddTransfer
+
+<form class="form-horizontal" asp-action="Add" asp-controller="Transfer">
+    <fieldset>
+
+        <legend>Создание перемещения</legend>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="selectbasic">Выберите экспонат</label>
+            <div class="col-md-4">
+                <select id="selectbasic" name="exhibitid" class="form-control">
+                    @foreach (var item in Model.Exhibits)
+                    {
+                        <option value="@item.Id">Номер: @item.InvNum (@item.Title)</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput">Отправитель</label>
+            <div class="col-md-4">
+                <input id="textinput" name="sender" type="text" placeholder="ФИО и должность" class="form-control input-md">
+            </div>
+        </div>
+
+        
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput">Дата отправления</label>
+            <div class="col-md-4">
+                <input id="textinput" name="transferdate" type="text" placeholder="Дата" class="form-control input-md">
+            </div>
+        </div>
+
+        
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput">Цель отправления</label>
+            <div class="col-md-4">
+                <input id="textinput" name="purpose" type="text" placeholder="Цель" class="form-control input-md">
+            </div>
+        </div>
+
+        
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput">Дата возврата</label>
+            <div class="col-md-4">
+                <input id="textinput" name="returns" type="text" placeholder="Дата" class="form-control input-md">
+            </div>
+        </div>
+
+        
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput">Номер и дата документа</label>
+            <div class="col-md-4">
+                <input id="textinput" name="docnum" type="text" placeholder="Номер и дата" class="form-control input-md">
+            </div>
+        </div>
+
+        
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput">Адрес отправления</label>
+            <div class="col-md-4">
+                <input id="textinput" name="address" type="text" placeholder="Адрес" class="form-control input-md">
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="selectbasic">Контрагент</label>
+            <div class="col-md-4">
+                <select id="selectbasic" name="contractorid" class="form-control">
+                    @foreach (var item in Model.Contractors)
+                    {
+                        <option value="@item.Id">@item.Companyname</option>
+                    }
+
+                </select>
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <button id="singlebutton" name="singlebutton" class="btn btn-primary">Создать перемещение</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>

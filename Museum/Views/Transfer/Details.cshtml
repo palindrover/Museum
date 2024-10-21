@@ -1,0 +1,25 @@
+﻿@model Museum.Models.TransferFull
+
+<h2 align="center">Перемещение № @Html.DisplayFor(modelItem => Model.Id) от @Html.DisplayFor(modelItem => Model.TransferDate)</h2>
+
+<table class="iksweb">
+	<tbody>
+		<tr>
+			<td colspan="3">Экспонат: @Html.DisplayFor(modelItem => Model.ExhibTitle)<br />Инвентарный номер: @Html.DisplayFor(modelItem => Model.ExhibInvNum)</td>
+			<td colspan="3">Изображение:</br> <img src="@Html.DisplayFor(modelItem => Model.ExhibImage)" height="200px" /></td>
+		</tr>
+		<tr>
+			<td colspan="2">Отправил: @Html.DisplayFor(modelItem => Model.Sender)</td>
+			<td colspan="2">Куда отправлен: @Html.DisplayFor(modelItem => Model.ContrComp) (@Html.DisplayFor(modelItem => Model.Address))</td>
+			<td>Когда отправлен: @Html.DisplayFor(modelItem => Model.TransferDate)</td>
+			<td>Дата возвращения: @Html.DisplayFor(modelItem => Model.Returns)</td>
+		</tr>
+		<tr>
+			<td>Цель отправки: @Html.DisplayFor(modelItem => Model.Purpose)</td>
+			<td>Документ об отправке: @Html.DisplayFor(modelItem => Model.DocNum)</td>
+			<td colspan="2">Кто принял: @Html.DisplayFor(modelItem => Model.ContrSurname) @Html.DisplayFor(modelItem => Model.ContrName) @Html.DisplayFor(modelItem => Model.ContrPatrName)</td>
+			<td>Телефон: @Html.DisplayFor(modelItem => Model.ContrTel)</td>
+			<td>e-mail: @Html.DisplayFor(modelItem => Model.ContrMail)</td>
+		</tr>
+	</tbody>
+</table>

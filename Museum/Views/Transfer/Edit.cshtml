@@ -1,0 +1,32 @@
+﻿@model Museum.Models.TransferFull
+
+<form asp-action="Edit" asp-controller="Transfer" method="post">
+	<input type="hidden" name="id" value="@Model.Id">
+	<p>
+		<label asp-for="@Model.Sender">Отправитель: </label>
+		<input type="text" asp-for="@Model.Sender" name="sender">
+	</p>
+	<p>
+		<label asp-for="@Model.TransferDate">Дата отправки: </label>
+		<input type="textarea" asp-for="@Model.TransferDate" name="transferdate">
+	</p>
+	<p>
+		<label asp-for="@Model.Returns">Дата возвращения: </label>
+		<input type="text" asp-for="@Model.Returns" name="returns">
+	</p>
+	<p>
+		<label asp-for="@Model.Purpose">Цель перемещения: </label>
+		<input type="text" asp-for="@Model.Purpose" name="purpose">
+	</p>
+	<p>
+		<label asp-for="@Model.DocNum">Документ о передаче: </label>
+		<input type="text" asp-for="@Model.DocNum" name="docnum">
+	</p>
+	<p>
+		<label asp-for="@Model.Address">Адрес на который направлен: </label>
+		<input type="text" asp-for="@Model.Address" name="address">
+	</p>
+	<p>
+		<input type="submit" value="Сохранить" />
+	</p>
+</form>

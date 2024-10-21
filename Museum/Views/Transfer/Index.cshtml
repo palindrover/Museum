@@ -2,7 +2,7 @@
 
 <h2 align="center">Перемещения</h2>
 
-<form asp-controller="Transfers" asp-action="AddTransfer" method="post">
+<form asp-controller="Transfer" asp-action="Add" method="get">
     <input type="submit" value="Добавить перемещение" />
 </form>
 <br />
@@ -26,9 +26,9 @@
             <td>@Html.DisplayFor(modelItem => item.Returns)</td>
             <td>@Html.DisplayFor(modelItem => item.DocNum)</td>
             <td>
-                <a href="@Url.Action("Transfer", "Transfers", new { transferID = item.ID})">Подробнее</a>
+                <a href="@Url.Action("Details", "Transfer", new { id = item.ID})">Подробнее</a>
                 <br />
-                <a asp-action="Edit" asp-controller="Transfers" asp-route-id="@item.ID">Изменить</a>
+                <a asp-action="Edit" asp-controller="Transfer" asp-route-id="@item.ID">Изменить</a>
                 <form asp-controller="Transfer" asp-action="Delete" method="post" asp-route-id="@item.ID">
                     <input type="hidden" name="invNum" value="@item.ExhibInvNum" />
                     <input type="submit" value="Удалить" OnClick='return confirm("Вы действительно хотите удалить это перемещение?");' />
