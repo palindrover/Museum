@@ -48,9 +48,10 @@ namespace Museum.Controllers
             string img = GetImages(exhibitionimage), ex = GetExhibits(exhibitsarray), lu = GetLeadups(exhibitsleadup);
 
             var _addContext = HttpContext.RequestServices.GetService(typeof(ExhibitionContext)) as ExhibitionContext;
+            var _exhibitContext = HttpContext.RequestServices.GetService(typeof(ExhibitContext)) as ExhibitContext;
+
             int id = _addContext.Add(exhibitiontitle, exhibitiondescription, img, ex, lu);
-
-
+            _exhibitContext.SetExhibition(string.Join(",", exhibitsarray), id);            
 
             return RedirectToAction("Index");
         }
@@ -101,7 +102,10 @@ namespace Museum.Controllers
         public IActionResult Delete(int id)
         {
             var _del = HttpContext.RequestServices.GetService(typeof(ExhibitionContext)) as ExhibitionContext;
+            var _exhibitsContext = HttpContext.RequestServices.GetService(typeof(ExhibitContext)) as ExhibitContext;
+
             _del.Delete(id);
+            _exhibitsContext.DeleteExhibition(id);
 
             return RedirectToAction("Index");
         }

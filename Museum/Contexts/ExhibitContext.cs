@@ -128,5 +128,45 @@ namespace Museum.Contexts
             cmd.ExecuteNonQuery();
             conn.Close();
         }
+
+        public void SetExhibition(string exhibits, int exhibitionid)
+        {
+            using MySqlConnection con = GetConnection();
+            con.Open();
+            var cmd = con.CreateCommand();
+            cmd.CommandText = "UPDATE exhibits SET expositionid=" + exhibitionid + " WHERE id IN (" + exhibits + ")";
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+
+        public void DeleteExhibition(int id)
+        {
+            List<int> _exhibits = new List<int>();
+            using MySqlConnection con = GetConnection();
+            con.Open();
+            var cmd = con.CreateCommand();
+            cmd.CommandText = "SELECT * FROM exhibits WHERE expositionid=" + id;
+            using MySqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read()) _exhibits.Add(_sd.SafeGetNumericData(reader, "id"));
+            reader.Close();
+            cmd.CommandText = "UPDATE exhibits SET expositionid=0 WHERE id IN (" + string.Join(",", _exhibits) +")";
+            cmd.ExecuteNonQuery ();
+            con.Close();
+        }
+
+        public void DeleteTransfer(int id)
+        {
+            int _exid = -1;
+            using MySqlConnection con = GetConnection();
+            con.Open();
+            var cmd = con.CreateCommand();
+            cmd.CommandText = "SELECT id FROM exhibits WHERE wheretransmittedid=" + id;
+            using MySqlDataReader reader = cmd.ExecuteReader();
+            if(reader.Read()) _exid = reader.GetInt32("id");
+            reader.Close();
+            cmd.CommandText = "UPDATE exhibits SET wheretransmittedid=0 WHERE id=" + _exid;
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
     }
 }

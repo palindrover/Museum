@@ -20,7 +20,11 @@ namespace Museum.Controllers
         public IActionResult Delete(int id)
         {
 			var _context = HttpContext.RequestServices.GetService(typeof(TransferContext)) as TransferContext;
+            var _exhibitContext = HttpContext.RequestServices.GetService(typeof(ExhibitContext)) as ExhibitContext;
+
 			_context.Delete(id);
+            _exhibitContext.DeleteTransfer(id);
+
             return RedirectToAction("Index");
         }
 
