@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Museum.Models.Exhibit>
+
+@{
+    ViewBag.Title = "Печать инвентаризационной ведомости";
+}
+@{
+    string header = "";
+}
+<script type="text/javascript">
+      function PrintDiv() {
+        var divToPrint = document.getElementById('result');
+          var popupWin = window.open('', '_blank', 'width=800,height=800,location=no,left=200px');
+          popupWin.document.open();
+          popupWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</html>');
+          popupWin.document.close();
+      }
+</script>
+
+<input id="btnprint" type="button" onclick="PrintDiv()" value="Печать ведомости" />
+
+<div id="result" name="result">
+<h2 align="center">Инвентаризационная ведомость</h2>
+<style>
+    table {
+        border: 2px solid black; /* Рамка вокруг таблицы */
+        border-collapse: collapse; /* Отображать только одинарные линии */
+    }
+
+    td {
+        border: 1px solid black; /* Граница вокруг ячеек */
+    }
+</style>
+
+<table width="100%">
+    @for (var i = 0; i < Model.Count(); i++)
+    {
+        @if (header != Convert.ToString(Model.ElementAt(i).ExhibitionHallId))
+        {
+            header = Convert.ToString(Model.ElementAt(i).ExhibitionHallId);
+            <tr>
+                <td colspan="4" style="font-weight:bold; text-align:center">@header</td>
+            </tr>
+            <tr style="font-weight:bold; text-align:center">
+                <td>№ п/п</td>
+                <td>Наименовение</td>
+                <td>Инвентарный номер</td>
+                <td>Фото</td>
+            </tr>
+        }
+        <tr >
+            <td style="font-weight:bold; text-align:center">@(i + 1)</td>
+            <td>@Model.ElementAt(i).Title</td>
+            <td style ="text-align:center">@Model.ElementAt(i).InvNum</td>
+            <td align="center"><img src="@Model.ElementAt(i).Images[0]" height="100px" /></td>
+        </tr>
+
+    }
+</table>
+</div>

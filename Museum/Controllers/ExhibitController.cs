@@ -124,5 +124,12 @@ namespace Museum.Controllers
 
             return RedirectToAction("Index");
         }
+        
+        [Authorize(Roles ="True")]
+        public IActionResult Print()
+        {
+            var _exhibitContext = HttpContext.RequestServices.GetService(typeof(ExhibitContext)) as ExhibitContext;
+            return View(_exhibitContext.GetAllExhibits().OrderBy(i => i.ExhibitionHallId));
+        }
     }
 }
